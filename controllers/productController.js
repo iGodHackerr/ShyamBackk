@@ -265,7 +265,6 @@
 // };
 
 // export { addProduct, listProduct, removeProduct, getProduct };
-
 import productModel from "../models/productModel.js";
 import cloudinary from "cloudinary";
 import streamifier from "streamifier";
@@ -277,12 +276,9 @@ const addProduct = async (req, res) => {
     const sizes = JSON.parse(req.body.sizes);
     const uploadedImages = [];
 
-    // Handle files from memory buffer
     for (const file of req.files) {
       const result = await new Promise((resolve, reject) => {
-        const stream = cloudinary.v2.uploader.upload_stream(
-          { folder: "shyam_sunder_uploads" },
-          (error, result) => {
+        const stream = cloudinary.v2.uploader.upload_stream({ folder: "shyam_sunder_uploads" }, (error, result) => {
             if (result) resolve(result);
             else reject(error);
           }
@@ -305,7 +301,24 @@ const addProduct = async (req, res) => {
   }
 };
 
-// List all products
+// --- THIS IS THE FIX ---
+// Get a single product by ID
+const getProduct = async (req, res) => {
+  try {
+    const product = await productModel.findById(req.params.id);
+    if (product) {
+      // Ensure the response is always wrapped correctly
+      res.json({ success: true, product: product });
+    } else {
+      res.json({ success: false, message: "Product not found" });
+    }
+  } catch (error) {
+    console.error("Get Product Error:", error);
+    res.json({ success: false, message: "Error fetching product details" });
+  }
+};
+
+// All Products list
 const listProduct = async (req, res) => {
   try {
     const products = await productModel.find({});
@@ -315,9 +328,14 @@ const listProduct = async (req, res) => {
   }
 };
 
-// Get a single product by ID
-const getProduct = async (req, res) => { /* ... (no changes needed) */ };
 // Remove Product
-const removeProduct = async (req, res) => { /* ... (no changes needed) */ };
+const removeProduct = async (req, res) => {
+  try {
+    await productModel.findByIdAndDelete(req.body.id);
+    res.json({ success: true, message: "Product Removed" });
+  } catch (error) {
+    res.json({ success: false, message: "Error removing product." });
+  }
+};
 
 export { addProduct, listProduct, removeProduct, getProduct };
