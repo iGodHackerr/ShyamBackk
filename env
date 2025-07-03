@@ -1,0 +1,8 @@
+MONGODB_URI=mongodb+srv://oricueo:uLyZgXBe97g55lXl@cluster0.ncnrufn.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0
+JWT_SECRET=a_very_long_and_random_string_for_security_12345
+CLOUDINARY_API_KEY  = "279393529653149"
+CLOUDINARY_SECRET_KEY = "JRXevgEBFJl3TCC16qnYSVoJ0Ug"
+CLOUDINARY_NAME = "dzei1lkb3"
+ADMIN_EMAIL = "admin@kl.com"
+ADMIN_PASSWORD = "123"
+STRIPE_SECRET_KEY = <Your Stripe Secret>
