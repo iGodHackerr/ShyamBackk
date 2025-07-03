@@ -26,6 +26,30 @@
 // productRouter.get("/list", listProduct);
 
 // export default productRouter;
+// import express from "express";
+// import {
+//   addProduct,
+//   listProduct,
+//   removeProduct,
+//   getProduct,
+// } from "../controllers/productController.js";
+// import multer from "multer";
+
+// const productRouter = express.Router();
+
+// // Configure multer to store files in memory instead of on disk
+// const storage = multer.memoryStorage();
+// const upload = multer({ storage: storage });
+
+// // Use the new upload middleware for the add product route
+// productRouter.post("/add", upload.array("images", 4), addProduct);
+// productRouter.get("/list", listProduct);
+// productRouter.post("/remove", removeProduct);
+// productRouter.get("/get/:id", getProduct);
+
+// export default productRouter;
+
+
 import express from "express";
 import {
   addProduct,
@@ -37,11 +61,11 @@ import multer from "multer";
 
 const productRouter = express.Router();
 
-// Configure multer to store files in memory instead of on disk
+// Configure multer for memory storage (required for Vercel)
 const storage = multer.memoryStorage();
 const upload = multer({ storage: storage });
 
-// Use the new upload middleware for the add product route
+// Routes
 productRouter.post("/add", upload.array("images", 4), addProduct);
 productRouter.get("/list", listProduct);
 productRouter.post("/remove", removeProduct);

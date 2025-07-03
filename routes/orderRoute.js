@@ -84,7 +84,6 @@
 
 
 
-
 import express from "express";
 import authMiddleware from "../middleware/auth.js";
 import adminAuth from "../middleware/adminAuth.js";
@@ -105,7 +104,7 @@ orderRouter.post("/placecod", authMiddleware, placeOrderCod);
 orderRouter.post("/verify", authMiddleware, verifyOrder);
 orderRouter.post("/userorders", authMiddleware, userOrders);
 
-// Admin Routes
+// Admin Routes (Requires adminAuth middleware)
 orderRouter.post('/list', adminAuth, listOrders);
 orderRouter.post("/status", adminAuth, updateStatus);
 
